@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jakub Kresta — Úvod</title>
+  <link rel="stylesheet" href="uvod.css">
+  <meta name="description" content="Jednoduchá startovací šablona s postranním panelem a moderním stylem" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <button class="toggle-sidebar" aria-label="Přepnout postranní panel">☰</button>
+      <div class="topbar-title">Jakub Kresta</div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">provizorní název</div>
+      <nav>
+        <ul>
+          <li><a href="#">Domů</a></li>
+          <li><a href="#about">O mně</a></li>
+          <li><a href="#projects">Projekty</a></li>
+          <li><a href="#contact">Kontakt</a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">verze 1.0</div>
+    </aside>
+
+    <main class="content">
+      <section class="hero">
+        <h2>Vítej na mé stránce</h2>
+        <p>Ahoj a vítej. Jmenuji se Jakub Kresta a jsem tu ten, kdo to vytvořil. Na této stránce najdeš informace o mě, jako např. mé koníčky, zájmy a další zbytečnosti.</p>
+        <p>Přeji ti příjemný pobyt a čtení!</p>
+      </section>
+
+      <section id="about" class="panel">
+        <h3>O mně</h3>
+        <p>Několik věcí o mých koníčcích, zkušenostech a zájmech.</p>
+      </section>
+
+      <section id="projects" class="cards">
+        <article class="card">
+          <h4>Zájmy-rozdělení</h4>
+          <p>Krátký popis projektu.</p>
+        </article>
+        <article class="card">
+          <h4>Koníčky-rozdělení</h4>
+          <p>Krátký popis projektu.</p>
+        </article>
+        <article class="card">
+          <h4>Zbytek</h4>
+          <p>Krátký popis projektu.</p>
+        </article> 
+      </section>
+
+      <section id="contact" class="panel">
+        <h3>Kontakt</h3>
+        <p>Email: jakub.kresta@frengp.cz</p>
+        <p>Discord: kubulko2acc</p>
+        <p>Instagram: kubulko</p>
+      </section>
+    </main>
+
+    <footer class="footer">© 2025 Jakub Kresta</footer>
+  </div>
+
+  <script>
+    (function(){
+      const btn = document.querySelector('.toggle-sidebar');
+      const sidebar = document.getElementById('sidebar');
+      btn.addEventListener('click', ()=> sidebar.classList.toggle('collapsed'));
+      // Close sidebar when a link is clicked (mobile)
+      document.querySelectorAll('.sidebar a').forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
+    })();
+  </script>
+</body>
+</html>
