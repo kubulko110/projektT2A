@@ -19,7 +19,7 @@
       <nav>
         <ul>
           <li><a href="#">Domů</a></li>
-          <li><a href="#about">O mně</a></li>
+          <li><a href="o mě.html">O mně</a></li>
           <li><a href="#projects">Projekty</a></li>
           <li><a href="#contact">Kontakt</a></li>
         </ul>
@@ -31,7 +31,7 @@
       <section class="hero">
         <h2>Vítej na mé stránce</h2>
         <p>Ahoj a vítej. Jmenuji se Jakub Kresta a jsem tu ten, kdo to vytvořil. Na této stránce najdeš informace o mě, jako např. mé koníčky, zájmy a další zbytečnosti.</p>
-        <p>Přeji ti příjemný pobyt a čtení!</p>
+        <p>Přeji ti příjemné čtení!</p>
       </section>
 
       <section id="about" class="panel">
@@ -42,15 +42,13 @@
       <section id="projects" class="cards">
         <article class="card">
           <h4>Zájmy-rozdělení</h4>
-          <p>Krátký popis projektu.</p>
         </article>
         <article class="card">
           <h4>Koníčky-rozdělení</h4>
-          <p>Krátký popis projektu.</p>
         </article>
         <article class="card">
           <h4>Zbytek</h4>
-          <p>Krátký popis projektu.</p>
+          <p>To co jsem nevěděl kam zařadit.</p>
         </article> 
       </section>
 
@@ -70,7 +68,6 @@
       const btn = document.querySelector('.toggle-sidebar');
       const sidebar = document.getElementById('sidebar');
       btn.addEventListener('click', ()=> sidebar.classList.toggle('collapsed'));
-      // Close sidebar when a link is clicked (mobile)
       document.querySelectorAll('.sidebar a').forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
     })();
   </script>
