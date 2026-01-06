@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>O mně — Jakub Kresta</title>
+  <link rel="stylesheet" href="uvod.css">
+  <meta name="description" content="Stránka O mně — místo, kam můžeš napsat něco o sobě." />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <button class="toggle-sidebar" aria-label="Přepnout postranní panel">☰</button>
+      <div class="topbar-title">Jakub Kresta</div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">Rychlá pomůcka</div>
+      <nav>
+        <ul>
+          <li><a href="úvodní stránka.html">Domů</a></li>
+          <li><a href="o me.html">O mně</a></li>
+          <li><a href="projekty.html">Projekty</a></li>
+          <li><a href="zajmy.html">Zájmy</a></li>
+          <li><a href="konicky.html">koníčky</a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">verze 1.0</div>
+    </aside>
+
+    <main class="content">
+      <section class="hero">
+        <h2>O mně</h2>
+        <p>Jmenuji se Jakub Kresta. Je mi 17 let a tuto stránku dělám jako součást školního projetku. Mám opravdu spoutstu zájmů, což jsem shrnul na stránce zájmy a koníčky.</p>
+        <p>Zde udělám jenom velmi zrychleně sumarizaci. Velice rád hraji hry, sleduji anime, čtu knihy nebo trávím čas s kamarády. Zajímám se o druhou světovou válku, historii a také o aktuální dění ve světe.</p>
+        <p>Považuji se za poměrně chytrého, ale hodně líného člověka. Většinu času trávím doma na počítači nebo ve škole.</p>
+        <p>Jednou za čas se do něčeho vrhnu po hlavě a jenom krátkodobě, např. učení se japonštiny nebo posilování.</p>
+        <p>Nejsem trpělivý ani všestraný. Něco mi jde a něco ne. Na konci dne jsem taky jenom člověk.</p>
+        <p>Rád se bavím o politice, vtipkuji nebo koukám s kamarády na filmy popř. s nimi hraji hry.</p>
+        <p>Obor IT jsem si vybral, jelikož bych se chtěl v budoucnu podílet na vývoji videoher.</p>
+
+      </section>
+
+    </main>
+
+    <footer class="footer">© 2025 Jakub Kresta</footer>
+  </div>
+
+  <script>
+    (function(){
+      const btn = document.querySelector('.toggle-sidebar');
+      const sidebar = document.getElementById('sidebar');
+      btn.addEventListener('click', ()=> sidebar.classList.toggle('collapsed'));
+      document.querySelectorAll('.sidebar a').forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
+
+      const textarea = document.getElementById('about');
+      const saveBtn = document.getElementById('saveBtn');
+      const clearBtn = document.getElementById('clearBtn');
+      const STORAGE_KEY = 'about_me_content_v1';
+
+      // load
+      try{
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if(saved) textarea.value = saved;
+      }catch(e){/* ignore */}
+
+      // autosave
+      let timer;
+      textarea.addEventListener('input', ()=>{
+        clearTimeout(timer);
+        timer = setTimeout(()=>{
+          try{ localStorage.setItem(STORAGE_KEY, textarea.value); }catch(e){}
+        }, 600);
+      });
+
+      saveBtn.addEventListener('click', ()=>{
+        try{ localStorage.setItem(STORAGE_KEY, textarea.value); alert('Uloženo.'); }catch(e){alert('Ukládání selhalo.');}
+      });
+
+      clearBtn.addEventListener('click', ()=>{
+        if(!confirm('Opravdu vymazat obsah?')) return;
+        textarea.value = '';
+        try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+      });
+    })();
+  </script>
+</body>
+</html>

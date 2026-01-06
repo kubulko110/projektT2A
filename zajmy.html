@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jakub Kresta — Zájmy</title>
+  <link rel="stylesheet" href="uvod.css">
+  <meta name="description" content="Rozdělení mých zájmů" />
+</head>
+<body>
+
+<div class="app">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <button class="toggle-sidebar" aria-label="Přepnout postranní panel">☰</button>
+    <div class="topbar-title">Jakub Kresta</div>
+  </header>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">provizorní název</div>
+    <nav>
+      <ul>
+        <li><a href="úvodní stránka.html">Domů</a></li>
+        <li><a href="o mě.html">O mně</a></li>
+        <li><a href="zajmy.html">Zájmy</a></li>
+        <li><a href="#contact">Kontakt</a></li>
+      </ul>
+    </nav>
+    <div class="sidebar-footer">verze 1.0</div>
+  </aside>
+
+  <!-- OBSAH -->
+  <main class="content">
+
+    <!-- HERO -->
+    <section class="hero">
+      <h2>Moje zájmy</h2>
+      <p>
+        Tato stránka je věnována přehledu mých hlavních zájmů.  
+        Kliknutím na jednotlivé sekce se dostaneš na jejich detail.
+      </p>
+    </section>
+
+    <!-- KARTY ZÁJMŮ -->
+    <section class="cards">
+
+      <a href="zajem-programovani.html" class="card">
+        <img src="assets/images/programovani.jpg" alt="Programování">
+        <h4>Programování</h4>
+        <p>HTML, CSS, logika a tvorba webů</p>
+      </a>
+
+      <a href="zajem-webdesign.html" class="card">
+        <img src="assets/images/webdesign.jpg" alt="Webdesign">
+        <h4>Webdesign</h4>
+        <p>Návrh rozložení a vizuální styl</p>
+      </a>
+
+      <a href="zajem-hry.html" class="card">
+        <img src="assets/images/hry.jpg" alt="Hry">
+        <h4>Hry</h4>
+        <p>Relax, strategie a zábava</p>
+      </a>
+
+      <a href="zajem-hudba.html" class="card">
+        <img src="assets/images/hudba.jpg" alt="Hudba">
+        <h4>Hudba</h4>
+        <p>Poslech i objevování nových žánrů</p>
+      </a>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">© 2025 Jakub Kresta</footer>
+
+</div>
+
+<script>
+  (function(){
+    const btn = document.querySelector('.toggle-sidebar');
+    const sidebar = document.getElementById('sidebar');
+    btn.addEventListener('click', ()=> sidebar.classList.toggle('collapsed'));
+    document.querySelectorAll('.sidebar a')
+      .forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
+  })();
+</script>
+
+</body>
+</html>
