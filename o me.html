@@ -21,8 +21,7 @@
           <li><a href="úvodní stránka.html">Domů</a></li>
           <li><a href="o me.html">O mně</a></li>
           <li><a href="projekty.html">Projekty</a></li>
-          <li><a href="zajmy.html">Zájmy</a></li>
-          <li><a href="konicky.html">koníčky</a></li>
+          <li><a href="zajmy.html">Zájmy a koníčky</a></li>
         </ul>
       </nav>
       <div class="sidebar-footer">verze 1.0</div>
@@ -38,6 +37,9 @@
         <p>Nejsem trpělivý ani všestraný. Něco mi jde a něco ne. Na konci dne jsem taky jenom člověk.</p>
         <p>Rád se bavím o politice, vtipkuji nebo koukám s kamarády na filmy popř. s nimi hraji hry.</p>
         <p>Obor IT jsem si vybral, jelikož bych se chtěl v budoucnu podílet na vývoji videoher.</p>
+        <p>Nedávno jsem se znovu dostal do učení se japonštiny a posilování, tak schválně jak dlouho mi to vydrží. </p>
+        <p>Jako mladý jsem se učil hrát na klávesy, hrál jsem házenou, florbal, nerfligu, stavěl plastikové modely, ale u ničeho jsem nesetrval.</p>
+        <p>Toto je vše, přeji příjemný pobyt na mé stránce.</p>
 
       </section>
 
@@ -52,36 +54,6 @@
       const sidebar = document.getElementById('sidebar');
       btn.addEventListener('click', ()=> sidebar.classList.toggle('collapsed'));
       document.querySelectorAll('.sidebar a').forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
-
-      const textarea = document.getElementById('about');
-      const saveBtn = document.getElementById('saveBtn');
-      const clearBtn = document.getElementById('clearBtn');
-      const STORAGE_KEY = 'about_me_content_v1';
-
-      // load
-      try{
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if(saved) textarea.value = saved;
-      }catch(e){/* ignore */}
-
-      // autosave
-      let timer;
-      textarea.addEventListener('input', ()=>{
-        clearTimeout(timer);
-        timer = setTimeout(()=>{
-          try{ localStorage.setItem(STORAGE_KEY, textarea.value); }catch(e){}
-        }, 600);
-      });
-
-      saveBtn.addEventListener('click', ()=>{
-        try{ localStorage.setItem(STORAGE_KEY, textarea.value); alert('Uloženo.'); }catch(e){alert('Ukládání selhalo.');}
-      });
-
-      clearBtn.addEventListener('click', ()=>{
-        if(!confirm('Opravdu vymazat obsah?')) return;
-        textarea.value = '';
-        try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
-      });
     })();
   </script>
 </body>

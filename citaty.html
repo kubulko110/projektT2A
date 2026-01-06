@@ -1,8 +1,57 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Citáty</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Citáty — Jakub Kresta</title>
+    <link rel="stylesheet" href="uvod.css">
+    <meta name="description" content="Výběr citátů a krátké poznámky." />
+</head>
+<body>
+    <div class="app">
+        <header class="topbar">
+            <button class="toggle-sidebar" aria-label="Přepnout postranní panel">☰</button>
+            <div class="topbar-title">Jakub Kresta</div>
+        </header>
+
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">Rychlá pomůcka</div>
+            <nav>
+                <ul>
+                    <li><a href="úvodní stránka.html">Domů</a></li>
+                    <li><a href="o me.html">O mně</a></li>
+                    <li><a href="projekty.html">Projekty</a></li>
+                    <li><a href="zajmy.html">Zájmy a koníčky</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">verze 1.0</div>
+        </aside>
+
+        <main class="content">
+            <section class="hero">
+                <h2>Citáty</h2>
+                <p>Krátký výběr citátů, které se mi líbí.</p>
+            </section>
+
+            <section class="panel">
+                <ul>
+                    <li>"Nejlepší čas zasadit strom byl před 20 lety. Druhý nejlepší čas je dnes."</li>
+                    <li>"Cesta tisíce mil začíná jedním krokem."</li>
+                </ul>
+            </section>
+
+        </main>
+
+        <footer class="footer">© 2025 Jakub Kresta</footer>
+    </div>
+
+    <script>
+        (function(){
+            const btn = document.querySelector('.toggle-sidebar');
+            const sidebar = document.getElementById('sidebar');
+            btn.addEventListener('click', ()=> sidebar.classList.toggle('collapsed'));
+            document.querySelectorAll('.sidebar a').forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
+        })();
+    </script>
+</body>
 </html>

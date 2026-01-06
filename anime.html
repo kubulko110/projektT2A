@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anime — Jakub Kresta</title>
+  <link rel="stylesheet" href="uvod.css">
+  <meta name="description" content="Moje oblíbené anime a doporučení." />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <button class="toggle-sidebar" aria-label="Přepnout postranní panel">☰</button>
+      <div class="topbar-title">Jakub Kresta</div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">Rychlá pomůcka</div>
+      <nav>
+        <ul>
+          <li><a href="úvodní stránka.html">Domů</a></li>
+          <li><a href="o me.html">O mně</a></li>
+          <li><a href="projekty.html">Projekty</a></li>
+          <li><a href="zajmy.html">Zájmy a koníčky</a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">verze 1.0</div>
+    </aside>
+
+    <main class="content">
+      <section class="hero">
+        <h2>Anime</h2>
+        <p>Zde najdeš seznam mých oblíbených anime, krátké komentáře a doporučení. Úplně na konci nalezneš i odkaz na mou powerpoint prezentaci, kde najdeš všechny mé shlédnuté anime.</p>
+      </section>
+
+      <section class="panel">
+        <h3>Seznam</h3>
+        <ul>
+          <li><strong>Attack on Titan</strong> — intenzivní příběh a silné postavy.</li>
+          <li><strong>Steins;Gate</strong> — výborné se vtahující cestování časem.</li>
+          <li><strong>One Piece</strong> — dlouhá, ale skvělá dobrodružná série.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer">© 2025 Jakub Kresta</footer>
+  </div>
+
+  <script>
+    (function(){
+      const btn = document.querySelector('.toggle-sidebar');
+      const sidebar = document.getElementById('sidebar');
+      btn.addEventListener('click', ()=> sidebar.classList.toggle('collapsed'));
+      document.querySelectorAll('.sidebar a').forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
+    })();
+  </script>
+</body>
+</html>
