@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kvíz — Jakub Kresta</title>
+  <link rel="stylesheet" href="uvod.css">
+  
+  <meta name="description" content="Kvíz o mně — stránka" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <button class="toggle-sidebar" aria-label="Přepnout postranní panel">☰</button>
+      <div class="topbar-title">Jakub Kresta</div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">Rychlá pomůcka</div>
+      <nav>
+        <ul>
+          <li><a href="úvodní stránka.html">Domů</a></li>
+          <li><a href="o me.html">O mně</a></li>
+          <li><a href="zajmy.html">Zájmy a koníčky</a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">verze 1.0</div>
+    </aside>
+
+    <main class="content">
+      <section class="hero">
+        <h2>Kvíz o mně</h2>
+        <p>Zde můžeš otestovat, co víš o mně.</p>
+      </section>
+
+      <section id="quiz" aria-labelledby="quiz-title">
+        <h3 id="quiz-title">Kvíz o mně</h3>
+        <form id="quizForm">
+          <div class="question">
+            <div class="qtext">1) Co studuji? (a / b / c)</div>
+            <label>a) <input type="radio" name="q1" value="a"> Matematiku</label>
+            <label>b) <input type="radio" name="q1" value="b"> IT na střední škole</label>
+            <label>c) <input type="radio" name="q1" value="c"> Fyziku</label>
+          </div>
+
+          <div class="question">
+            <div class="qtext">2) Jaký mám koníček? (a / b / c)</div>
+            <label>a) <input type="radio" name="q2" value="a"> Hudba</label>
+            <label>b) <input type="radio" name="q2" value="b"> Astronomie</label>
+            <label>c) <input type="radio" name="q2" value="c"> Rybaření</label>
+          </div>
+
+          <div class="question">
+            <div class="qtext">3) Kde studuji (město)? (a / b / c)</div>
+            <label>a) <input type="radio" name="q3" value="a"> Frenštát pod Radhoštěm</label>
+            <label>b) <input type="radio" name="q3" value="b"> Praha</label>
+            <label>c) <input type="radio" name="q3" value="c"> Brno</label>
+          </div>
+
+          <button type="submit">Odevzdat</button>
+          <div id="quizResult" aria-live="polite"></div>
+        </form>
+      </section>
+
+    </main>
+
+    <footer class="footer">© 2025 Jakub Kresta</footer>
+  </div>
+
+  <script>
+    (function(){
+      const btn = document.querySelector('.toggle-sidebar');
+      const sidebar = document.getElementById('sidebar');
+      btn.addEventListener('click', ()=> sidebar.classList.toggle('collapsed'));
+      document.querySelectorAll('.sidebar a').forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
+    })();
+
+    // Kvíz: zkontrolovat požadované navštívené stránky před povolením kvízu
+    (function(){
+      // require visiting all other main pages before allowing the quiz
+      const requiredPages = [
+        {key:'visited_home', href:'úvodní stránka.html', label:'Domů'},
+        {key:'visited_o_me', href:'o me.html', label:'O mně'},
+        {key:'visited_zajmy', href:'zajmy.html', label:'Zájmy a koníčky'},
+        {key:'visited_anime', href:'anime.html', label:'Anime'},
+        {key:'visited_gaming', href:'gaming.html', label:'Gaming'},
+        {key:'visited_hudba', href:'hudba.html', label:'Hudba'},
+        {key:'visited_citaty', href:'citaty.html', label:'Citáty'},
+        {key:'visited_autor', href:'autor.html', label:'Autor'},
+        {key:'visited_achievements', href:'achievements.html', label:'Achievementy'}
+      ];
+
+      const form = document.getElementById('quizForm');
+      const result = document.getElementById('quizResult');
+
+      // create a visit counter panel above the form
+      const counter = document.createElement('div'); counter.id = 'visit-counter'; counter.className = 'panel';
+      const visitedCount = requiredPages.reduce((s,p)=> s + (localStorage.getItem(p.key)?1:0), 0);
+      counter.innerHTML = `<strong>Navštíveno: ${visitedCount} / ${requiredPages.length}</strong><div style="margin-top:8px">${requiredPages.map(p=>{
+        const ok = localStorage.getItem(p.key);
+        return `<div style="margin:4px 0; color:${ok? 'var(--accent-2)':'var(--muted)'}">${ok? '✓':'○'} <a href="${p.href}" style="color:inherit; text-decoration:underline">${p.label}</a></div>`;
+      }).join('')}</div>`;
+      if(result && result.parentNode){ result.parentNode.insertBefore(counter, result); }
+
+      const missing = requiredPages.filter(p=> !localStorage.getItem(p.key));
+      if(missing.length && form){
+        form.style.display = 'none';
+        const msg = document.createElement('div');
+        msg.className = 'panel';
+        msg.innerHTML = `<h4>Kvíz je zablokován</h4><p>Než spustíš kvíz, navštiv prosím tyto stránky:</p><ul>${missing.map(m=>`<li><a href="${m.href}">${m.label}</a></li>`).join('')}</ul>`;
+        result.parentNode.insertBefore(msg, result);
+      }
+    })();
+
+    // Kvíz: vyhodnocení s reakcemi
+    (function(){
+      const form = document.getElementById('quizForm');
+      const result = document.getElementById('quizResult');
+      const reactions = document.getElementById('reactions');
+      if(!form) return;
+
+      const answers = { q1: 'b', q2: 'a', q3: 'a' };
+      const total = Object.keys(answers).length;
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        let correct = 0;
+        for(const q of Object.keys(answers)){
+          const el = form.querySelector(`[name="${q}"]:checked`);
+          const val = el ? el.value : null;
+          if(val === answers[q]) correct++;
+        }
+        const wrong = total - correct;
+        const percent = Math.round((correct/total)*100);
+        result.textContent = `Správně: ${correct} | Špatně: ${wrong} | Celkem: ${percent}%`;
+        // award achievements
+        localStorage.setItem('ach_quiz_complete','1');
+        if(percent > 50) localStorage.setItem('ach_quiz_50','1');
+        // show link to achievements and final thanks/game
+        let link = document.getElementById('ach-link');
+        if(!link){
+          link = document.createElement('div'); link.id='ach-link'; link.style.marginTop='12px';
+          link.innerHTML = `<a href="achievements.html" class="card" style="display:inline-block;padding:8px 12px;border-radius:8px;background:rgba(255,255,255,0.02);color:var(--text);text-decoration:none">Zobrazit achievementy a poděkování</a>`;
+          result.parentNode.appendChild(link);
+        }
+        // (reaction characters removed) simply show result and achievements
+      });
+    })();
+    // Pochita present on quiz page too: simple hover hearts
+    (function(){
+      const reactions = document.getElementById('reactions');
+      if(!reactions) return;
+      // create pochita chibi if not present
+      let poch = reactions.querySelector('[data-name="pochita"]');
+      if(!poch){
+        poch = document.createElement('div'); poch.className='chibi'; poch.dataset.name='pochita';
+        poch.innerHTML = '<div class="head"><img src="https://avatars.dicebear.com/api/identicon/pochita.svg" alt="Pochita"></div><div class="body"></div>';
+        reactions.insertBefore(poch, reactions.firstChild);
+      }
+      // hearts container
+      let hearts = document.getElementById('pochita-hearts-quiz');
+      if(!hearts){ hearts = document.createElement('div'); hearts.id='pochita-hearts-quiz'; hearts.className='hearts'; poch.appendChild(hearts); }
+
+      function makeHeart(){ const s=document.createElement('span'); s.className='heart'; s.innerHTML='❤'; hearts.appendChild(s); setTimeout(()=>s.remove(),1400); }
+      poch.addEventListener('mouseenter', ()=>{ makeHeart(); poch._t=setInterval(makeHeart,700); if(!localStorage.getItem('pochita_ach')){ localStorage.setItem('pochita_ach','1'); const a=document.createElement('div'); a.className='achievement show'; a.textContent='Gratuluji, našel jsi secret'; document.body.appendChild(a); setTimeout(()=>{ a.remove(); },4000);} });
+      poch.addEventListener('mouseleave', ()=>{ clearInterval(poch._t); });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Achievements — Jakub Kresta</title>
+  <link rel="stylesheet" href="uvod.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <button class="toggle-sidebar" aria-label="Přepnout postranní panel">☰</button>
+      <div class="topbar-title">Achievements</div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">Rychlá pomůcka</div>
+      <nav>
+        <ul>
+          <li><a href="úvodní stránka.html">Domů</a></li>
+          <li><a href="o me.html">O mně</a></li>
+          <li><a href="zajmy.html">Zájmy a koníčky</a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">verze 1.0</div>
+    </aside>
+
+    <main class="content">
+      <section class="hero">
+        <h2>Achievementy</h2>
+        <p>Zde jsou achievementy, které jsi získal(a).</p>
+      </section>
+
+      <section class="panel" id="ach-list">
+        <h3>Ocenění</h3>
+        <div id="items" style="display:flex;flex-wrap:wrap;gap:12px"></div>
+      </section>
+
+    </main>
+
+    <footer class="footer">© 2025 Jakub Kresta</footer>
+  </div>
+
+  <script>
+    (function(){
+      const btn = document.querySelector('.toggle-sidebar');
+      const sidebar = document.getElementById('sidebar');
+      btn.addEventListener('click', ()=> sidebar.classList.toggle('collapsed'));
+      document.querySelectorAll('.sidebar a').forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
+    })();
+
+    (function(){
+      const items = document.getElementById('items');
+      const achievements = [
+        {key:'pochita_ach', title:'Secret: Pochita', img:'https://avatars.dicebear.com/api/identicon/pochita.svg'},
+        {key:'ach_explosion', title:'Megumin Explosion', img:'https://avatars.dicebear.com/api/identicon/megumin.svg'},
+        {key:'ach_quiz_complete', title:'Kvíz dokončen', img:'https://avatars.dicebear.com/api/identicon/quiz.svg'},
+        {key:'ach_quiz_50', title:'Kvíz >50%', img:'https://avatars.dicebear.com/api/identicon/trophy.svg'}
+      ];
+      achievements.forEach(a=>{
+        const owned = localStorage.getItem(a.key);
+        const el = document.createElement('div'); el.className='card'; el.style.minWidth='200px'; el.innerHTML = `<img src="${a.img}" alt="${a.title}"><h4>${a.title}</h4><p>${owned ? 'Získáno' : 'Nezískáno'}</p>`;
+        items.appendChild(el);
+      });
+    })();
+    (function(){ try{ localStorage.setItem('visited_achievements','1'); }catch(e){} })();
+  </script>
+</body>
+</html>

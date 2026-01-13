@@ -20,7 +20,6 @@
         <ul>
           <li><a href="úvodní stránka.html">Domů</a></li>
           <li><a href="o me.html">O mně</a></li>
-          <li><a href="projekty.html">Projekty</a></li>
           <li><a href="zajmy.html">Zájmy a koníčky</a></li>
         </ul>
       </nav>
@@ -42,6 +41,13 @@
         </ul>
       </section>
     </main>
+      
+      <section class="panel">
+        <h3>Postavy</h3>
+        <div id="anime-chars" style="display:flex;flex-wrap:wrap;gap:10px">
+          <div style="padding:8px;color:var(--muted)">Seznam postav (viz samostatné stránky)</div>
+        </div>
+      </section>
 
     <footer class="footer">© 2025 Jakub Kresta</footer>
   </div>
@@ -53,6 +59,7 @@
       btn.addEventListener('click', ()=> sidebar.classList.toggle('collapsed'));
       document.querySelectorAll('.sidebar a').forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
     })();
+    (function(){ try{ localStorage.setItem('visited_anime','1'); }catch(e){} })();
   </script>
 </body>
 </html>

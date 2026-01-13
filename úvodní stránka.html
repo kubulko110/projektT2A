@@ -33,21 +33,30 @@
         <p>Přeji ti příjemné čtení!</p>
       </section>
 
-        <section id="projects" class="cards">
+      <section id="projects" class="cards">
 
-          <a href="zajmy.html" class="card">
-            <img src="assets/images/zajmy.jpg" alt="Zájmy">
-            <h4>Zájmy a koníčky – rozdělení</h4>
-          </a>
+        <a href="zajmy.html" class="card">
+          <img src="assets/images/zajmy.jpg" alt="Zájmy">
+          <h4>Zájmy a koníčky – rozdělení</h4>
+        </a>
 
-          <a href="ostatni.html" class="card">
-            <img src="assets/images/ostatni.jpg" alt="Ostatní">
-            <h4>Zbytek</h4>
-            <p>To co jsem nevěděl kam zařadit.</p>
-          </a>
+        <a href="ostatni.html" class="card">
+          <img src="assets/images/ostatni.jpg" alt="Ostatní">
+          <h4>Zbytek</h4>
+          <p>To co jsem nevěděl kam zařadit.</p>
+        </a>
 
-        </section>
+        <a href="kviz.html" class="card">
+          <img src="assets/images/quiz.jpg" alt="Kvíz">
+          <h4>Kvíz o mně</h4>
+          <p>Otestuj, co víš o mně.</p>
+        </a>
+
+      </section>
+
     </main>
+
+    <!-- followers removed per request -->
 
     <footer class="footer">© 2025 Jakub Kresta</footer>
   </div>
@@ -58,6 +67,12 @@
       const sidebar = document.getElementById('sidebar');
       btn.addEventListener('click', ()=> sidebar.classList.toggle('collapsed'));
       document.querySelectorAll('.sidebar a').forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
+    })();
+
+    // followers/pochita scripts removed per user request
+    (function(){
+      // mark homepage visited for unlocking quiz
+      try{ localStorage.setItem('visited_home','1'); }catch(e){}
     })();
   </script>
 </body>

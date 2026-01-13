@@ -20,7 +20,6 @@
         <ul>
           <li><a href="úvodní stránka.html">Domů</a></li>
           <li><a href="o me.html">O mně</a></li>
-          <li><a href="projekty.html">Projekty</a></li>
           <li><a href="zajmy.html">Zájmy a koníčky</a></li>
         </ul>
       </nav>
@@ -55,6 +54,7 @@
       btn.addEventListener('click', ()=> sidebar.classList.toggle('collapsed'));
       document.querySelectorAll('.sidebar a').forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
     })();
+    (function(){ try{ localStorage.setItem('visited_o_me','1'); }catch(e){} })();
   </script>
 </body>
 </html>

@@ -3,15 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gaming — Jakub Kresta</title>
+  <title>Seznam postav</title>
   <link rel="stylesheet" href="uvod.css">
-  <meta name="description" content="Moje oblíbené hry, žánry a vybavení." />
 </head>
 <body>
   <div class="app">
     <header class="topbar">
       <button class="toggle-sidebar" aria-label="Přepnout postranní panel">☰</button>
-      <div class="topbar-title">Jakub Kresta</div>
+      <div class="topbar-title">Seznam postav</div>
     </header>
 
     <aside class="sidebar" id="sidebar">
@@ -28,16 +27,33 @@
 
     <main class="content">
       <section class="hero">
-        <h2>Gaming</h2>
-        <p>Krátký přehled mých oblíbených her, žánrů a vybavení.</p>
+        <h2>Seznam postav</h2>
+        <p>Níže jsou jména postav, které jsi zmiňoval(a).</p>
       </section>
 
       <section class="panel">
-        <h3>Moje hry</h3>
+        <h3>Jména</h3>
         <ul>
-          <li><strong>Hry: </strong>Střelci, strategie, multiplayer (např. CS2, Civilization).</li>
-          <li><strong>Zařízení: </strong>PC s mechanickou klávesnicí a herní myší.</li>
-          <li><strong>Streamy: </strong>Občas sleduji gameplay a speedruny.</li>
+          <li>ZeroTwo</li>
+          <li>Waguri</li>
+          <li>Mahiru</li>
+          <li>Kaneki</li>
+          <li>Eren</li>
+          <li>Mikasa</li>
+          <li>Hange Zoe</li>
+          <li>Kazuma</li>
+          <li>Aqua</li>
+          <li>Darkness</li>
+          <li>Megumin</li>
+          <li>Pochita</li>
+          <li>Denji</li>
+          <li>Frieren</li>
+          <li>Makima</li>
+          <li>Chtholly</li>
+          <li>Alyu</li>
+          <li>Rudeus</li>
+          <li>Roxy</li>
+          <li>Eris</li>
         </ul>
       </section>
 
@@ -53,7 +69,6 @@
       btn.addEventListener('click', ()=> sidebar.classList.toggle('collapsed'));
       document.querySelectorAll('.sidebar a').forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
     })();
-    (function(){ try{ localStorage.setItem('visited_gaming','1'); }catch(e){} })();
   </script>
 </body>
 </html>

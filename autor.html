@@ -3,15 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gaming — Jakub Kresta</title>
+  <title>Autor — Jakub Kresta</title>
   <link rel="stylesheet" href="uvod.css">
-  <meta name="description" content="Moje oblíbené hry, žánry a vybavení." />
 </head>
 <body>
   <div class="app">
     <header class="topbar">
       <button class="toggle-sidebar" aria-label="Přepnout postranní panel">☰</button>
-      <div class="topbar-title">Jakub Kresta</div>
+      <div class="topbar-title">Autor</div>
     </header>
 
     <aside class="sidebar" id="sidebar">
@@ -28,17 +27,25 @@
 
     <main class="content">
       <section class="hero">
-        <h2>Gaming</h2>
-        <p>Krátký přehled mých oblíbených her, žánrů a vybavení.</p>
+        <h2>O autorovi</h2>
+        <p>Tady bude stručná informace o autorovi a kontakty.</p>
       </section>
 
       <section class="panel">
-        <h3>Moje hry</h3>
-        <ul>
-          <li><strong>Hry: </strong>Střelci, strategie, multiplayer (např. CS2, Civilization).</li>
-          <li><strong>Zařízení: </strong>PC s mechanickou klávesnicí a herní myší.</li>
-          <li><strong>Streamy: </strong>Občas sleduji gameplay a speedruny.</li>
-        </ul>
+        <h3>Kontakt</h3>
+        <div style="display:flex;gap:12px;align-items:center">
+          <img src="https://avatars.dicebear.com/api/identicon/author.svg" alt="Autor" style="width:120px;height:120px;border-radius:10px">
+          <div>
+            <p><strong>Jakub Kresta</strong></p>
+            <p>Email: <a href="mailto:example@example.com">example@example.com</a></p>
+            <p>Sociální sítě:</p>
+            <ul>
+              <li><a href="#">Instagram</a></li>
+              <li><a href="#">Twitter</a></li>
+              <li><a href="#">GitHub</a></li>
+            </ul>
+          </div>
+        </div>
       </section>
 
     </main>
@@ -53,7 +60,7 @@
       btn.addEventListener('click', ()=> sidebar.classList.toggle('collapsed'));
       document.querySelectorAll('.sidebar a').forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
     })();
-    (function(){ try{ localStorage.setItem('visited_gaming','1'); }catch(e){} })();
+      (function(){ try{ localStorage.setItem('visited_autor','1'); }catch(e){} })();
   </script>
 </body>
 </html>
