@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hudba — Jakub Kresta</title>
+  <title>Historie — Jakub Kresta</title>
   <link rel="stylesheet" href="uvod.css">
-  <meta name="description" content="Moje hudební vkusy a oblíbení interpreti." />
+  <meta name="description" content="Mé zajímavé historické periody a události." />
 </head>
 <body>
   <div class="app">
@@ -28,15 +28,25 @@
 
     <main class="content">
       <section class="hero">
-        <h2>Hudba</h2>
-        <p>Krátké poznámky o tom, co rád poslouchám a koho doporučuji.</p>
+        <h2>Historie</h2>
+        <p>Krátký přehled historických period a událostí, které mě zajímají.</p>
       </section>
 
       <section class="panel">
-        <h3>Oblíbení interpreti</h3>
+        <h3>Zajímavé periody</h3>
         <ul>
-          <li>Interpreti / kapely A, B, C</li>
-          <li>Žánry: rock, elektronika, soundtracky</li>
+          <li><strong>Středověk</strong> — Hradby, rytíři a středověká kultura.</li>
+          <li><strong>Starověk</strong> — Staroegyptská civilizace a antika.</li>
+          <li><strong>Moderní doba</strong> — Průmyslová revoluce a její dopad.</li>
+        </ul>
+      </section>
+
+      <section class="panel">
+        <h3>Historické osobnosti</h3>
+        <ul>
+          <li>Leonardo da Vinci — Renesance</li>
+          <li>Julius Caesar — Starověk</li>
+          <li>Isaac Newton — Vědecká revoluce</li>
         </ul>
       </section>
 
@@ -52,8 +62,8 @@
       btn.addEventListener('click', ()=> sidebar.classList.toggle('collapsed'));
       document.querySelectorAll('.sidebar a').forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
     })();
-    (function(){ try{ localStorage.setItem('visited_hudba','1'); }catch(e){} })();
-    
+    (function(){ try{ localStorage.setItem('visited_historie','1'); localStorage.setItem('ach_historie_visited','1'); }catch(e){} })();
+
     // === ADD QUIZ TO SIDEBAR DYNAMICALLY ===
     (function() {
       const requiredPages = [

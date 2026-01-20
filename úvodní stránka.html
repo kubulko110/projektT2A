@@ -35,21 +35,24 @@
 
       <section id="projects" class="cards">
 
-        <a href="zajmy.html" class="card">
-          <img src="assets/images/zajmy.jpg" alt="Zájmy">
+        <a href="zajmy.html" class="card editable-card" data-image-key="card-zajmy">
+          <img src="assets/images/zájmy.jpg" alt="Zájmy" class="editable-image">
           <h4>Zájmy a koníčky – rozdělení</h4>
+          <input type="file" class="hidden-image-input" accept="image/*">
         </a>
 
-        <a href="ostatni.html" class="card">
-          <img src="assets/images/ostatni.jpg" alt="Ostatní">
+        <a href="zbytek.html" class="card editable-card" data-image-key="card-zbytek">
+          <img src="assets/images/IDK-Featured.png" alt="Zbytek" class="editable-image">
           <h4>Zbytek</h4>
           <p>To co jsem nevěděl kam zařadit.</p>
+          <input type="file" class="hidden-image-input" accept="image/*">
         </a>
 
-        <a href="kviz.html" class="card">
-          <img src="assets/images/quiz.jpg" alt="Kvíz">
+        <a href="kviz.html" class="card editable-card" data-image-key="card-kviz">
+          <img src="assets/images/quiz.png" alt="Kvíz" class="editable-image">
           <h4>Kvíz o mně</h4>
           <p>Otestuj, co víš o mně.</p>
+          <input type="file" class="hidden-image-input" accept="image/*">
         </a>
 
       </section>
@@ -69,10 +72,126 @@
       document.querySelectorAll('.sidebar a').forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
     })();
 
-    // followers/pochita scripts removed per user request
+    // mark homepage visited for unlocking quiz
     (function(){
-      // mark homepage visited for unlocking quiz
       try{ localStorage.setItem('visited_home','1'); }catch(e){}
+    })();
+
+    // === QUIZ UNLOCK & CELEBRATION ===
+    (function() {
+      const requiredPages = [
+        'visited_o_me', 'visited_zajmy', 'visited_anime', 'visited_gaming',
+        'visited_historie', 'visited_zbytek', 'visited_citaty', 'visited_hudba', 'visited_autor'
+      ];
+      const allVisited = requiredPages.every(p => localStorage.getItem(p));
+      
+      if (allVisited) {
+        // Add quiz link to sidebar
+        const nav = document.querySelector('.sidebar nav ul');
+        const existingQuizLink = nav.querySelector('li a[href="kviz.html"]');
+        if (!existingQuizLink) {
+          const li = document.createElement('li');
+          li.innerHTML = '<a href="kviz.html">Kvíz o mně 🎉</a>';
+          nav.appendChild(li);
+        }
+        
+        // Add celebration effect to quiz card
+        const quizCard = document.querySelector('a[href="kviz.html"]');
+        if (quizCard && !quizCard.classList.contains('unlocked')) {
+          quizCard.classList.add('unlocked');
+          
+          // Trigger celebration animation
+          quizCard.style.animation = 'quiz-unlock 0.6s ease';
+          
+          // Create confetti-like effect
+          for (let i = 0; i < 12; i++) {
+            const confetti = document.createElement('div');
+            confetti.style.position = 'fixed';
+            confetti.style.pointerEvents = 'none';
+            confetti.style.left = quizCard.offsetLeft + quizCard.offsetWidth / 2 + 'px';
+            confetti.style.top = quizCard.offsetTop + 'px';
+            confetti.style.width = '10px';
+            confetti.style.height = '10px';
+            confetti.style.backgroundColor = ['#5eead4', '#60a5fa', '#fbbf24', '#f87171'][Math.floor(Math.random() * 4)];
+            confetti.style.borderRadius = '50%';
+            confetti.style.animation = `confetti-fall ${1 + Math.random() * 1}s ease-out forwards`;
+            confetti.style.zIndex = '999';
+            document.body.appendChild(confetti);
+            setTimeout(() => confetti.remove(), 2000);
+          }
+        }
+      }
+    })();
+
+    // === EDITABLE CARD IMAGES ===
+    (function() {
+      document.querySelectorAll('.editable-card').forEach(card => {
+        const img = card.querySelector('.editable-image');
+        const input = card.querySelector('.hidden-image-input');
+        const key = card.dataset.imageKey;
+
+        // Načti uložený obrázek
+        if (key) {
+          try {
+            const saved = localStorage.getItem(key);
+            if (saved) {
+              img.src = saved;
+            }
+          } catch (e) {}
+        }
+
+        // Kliknutí na obrázek otevře input
+        img.style.cursor = 'pointer';
+        img.title = 'Klikni pro změnu obrázku';
+        
+        img.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          input.click();
+        });
+
+        // Zpracuj vybraný soubor
+        input.addEventListener('change', (e) => {
+          const file = e.target.files[0];
+          if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+              img.src = evt.target.result;
+              // Ulož do localStorage
+              if (key) {
+                try {
+                  localStorage.setItem(key, evt.target.result);
+                } catch (err) {
+                  console.warn('Nemohu uložit obrázek:', err);
+                }
+              }
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+
+        // Zabrani default chování a naviguj ručně
+        card.addEventListener('click', (e) => {
+          // Kontrola pro kvíz
+          if (card.href.includes('kviz.html')) {
+            const requiredPages = [
+              'visited_o_me', 'visited_zajmy', 'visited_anime', 'visited_gaming',
+              'visited_historie', 'visited_zbytek', 'visited_citaty', 'visited_hudba', 'visited_autor'
+            ];
+            const missing = requiredPages.filter(p => !localStorage.getItem(p));
+            if (missing.length > 0) {
+              e.preventDefault();
+              e.stopPropagation();
+              alert('Nejdřív musíš navštívit všechny stránky!');
+              return;
+            }
+          }
+          
+          e.preventDefault();
+          e.stopPropagation();
+          window.location.href = card.href;
+        });
+      });
     })();
   </script>
 </body>

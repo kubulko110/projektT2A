@@ -55,6 +55,25 @@
       document.querySelectorAll('.sidebar a').forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
     })();
     (function(){ try{ localStorage.setItem('visited_o_me','1'); }catch(e){} })();
+    
+    // === ADD QUIZ TO SIDEBAR DYNAMICALLY ===
+    (function() {
+      const requiredPages = [
+        'visited_o_me', 'visited_zajmy', 'visited_anime', 'visited_gaming',
+        'visited_historie', 'visited_zbytek', 'visited_citaty', 'visited_hudba', 'visited_autor'
+      ];
+      const allVisited = requiredPages.every(p => localStorage.getItem(p));
+      
+      if (allVisited) {
+        const nav = document.querySelector('.sidebar nav ul');
+        const existingQuizLink = nav.querySelector('li a[href="kviz.html"]');
+        if (!existingQuizLink) {
+          const li = document.createElement('li');
+          li.innerHTML = '<a href="kviz.html">Kvíz o mně 🎉</a>';
+          nav.appendChild(li);
+        }
+      }
+    })();
   </script>
 </body>
 </html>

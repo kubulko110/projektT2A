@@ -143,7 +143,7 @@ html,body{
 
 .card img{
   width:100%;
-  height:160px;
+  height:240px;
   object-fit:cover;
   display:block;
   transition:
@@ -228,6 +228,75 @@ html,body{
 /* === UTILITY === */
 
 .muted{color:var(--muted)}
+
+/* === EDITABLE CARD IMAGES === */
+.hidden-image-input{display:none}
+.editable-image{position:relative}
+.editable-image::after{
+  content:"✏️";
+  position:absolute;
+  top:4px;
+  right:4px;
+  background:rgba(0,0,0,0.6);
+  border-radius:50%;
+  width:28px;
+  height:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  transition:opacity 0.2s ease
+}
+.editable-card:hover .editable-image::after{opacity:1}
+
+/* === QUIZ UNLOCK CELEBRATION === */
+.card.unlocked{
+  animation:quiz-unlock 0.6s ease;
+}
+
+@keyframes quiz-unlock{
+  0%{
+    transform:scale(0.95) rotateZ(-2deg);
+    box-shadow:0 0 0 rgba(94,234,212,0.5)
+  }
+  50%{
+    transform:scale(1.05) rotateZ(2deg);
+    box-shadow:0 0 30px rgba(94,234,212,0.8)
+  }
+  100%{
+    transform:scale(1) rotateZ(0deg);
+    box-shadow:0 18px 40px rgba(94,234,212,0.4)
+  }
+}
+
+@keyframes confetti-fall{
+  to{
+    transform:translateY(300px) translateX(calc(var(--tx) * 100px)) rotateZ(360deg);
+    opacity:0
+  }
+}
+
+.card.unlocked::before{
+  content:"🎉";
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:48px;
+  animation:celebrate-pop 0.8s ease-out forwards;
+  pointer-events:none
+}
+
+@keyframes celebrate-pop{
+  0%{
+    transform:translate(-50%,-50%) scale(0);
+    opacity:1
+  }
+  100%{
+    transform:translate(-50%,-150%) scale(1);
+    opacity:0
+  }
+}
 
 /* Styles for O mně page */
 .about-input{

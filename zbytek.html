@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Jakub Kresta — Zájmy</title>
+  <title>Jakub Kresta — Zbytek</title>
   <link rel="stylesheet" href="uvod.css">
-  <meta name="description" content="Rozdělení mých zájmů" />
+  <meta name="description" content="Ostatní věci" />
 </head>
 <body>
 
@@ -16,49 +16,54 @@
     <button class="toggle-sidebar" aria-label="Přepnout postranní panel">☰</button>
     <div class="topbar-title">Jakub Kresta</div>
   </header>
-    <aside class="sidebar" id="sidebar">
-      <div class="brand">Rychlá pomůcka</div>
-      <nav>
-        <ul>
-          <li><a href="úvodní stránka.html">Domů</a></li>
-          <li><a href="o me.html">O mně</a></li>
-          <li><a href="zajmy.html">Zájmy a koníčky</a></li>
-        </ul>
-      </nav>
-      <div class="sidebar-footer">verze 1.0</div>
-    </aside>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">Rychlá pomůcka</div>
+    <nav>
+      <ul>
+        <li><a href="úvodní stránka.html">Domů</a></li>
+        <li><a href="o me.html">O mně</a></li>
+        <li><a href="zajmy.html">Zájmy a koníčky</a></li>
+      </ul>
+    </nav>
+    <div class="sidebar-footer">verze 1.0</div>
+  </aside>
 
   <!-- OBSAH -->
   <main class="content">
 
     <!-- HERO -->
     <section class="hero">
-      <h2>Moje zájmy</h2>
-      <p>
-        Tato stránka je věnována přehledu mých hlavních zájmů.  
-        Kliknutím na jednotlivé sekce se dostaneš na jejich detail.
-      </p>
+      <h2>Zbytek</h2>
+      <p>Věci a stránky, které se nezařadily do hlavních kategorií.</p>
     </section>
 
-    <!-- KARTY ZÁJMŮ (odkazy na podstránky) -->
+    <!-- KARTY -->
     <section class="cards">
 
-      <a href="anime.html" class="card" id="anime-card">
-        <img src="assets/images/anime.jpg" alt="Anime">
-        <h4>Anime</h4>
-        <p>Co sleduji, doporučení a poznámky</p>
+      <a href="o me.html" class="card">
+        <img src="assets/images/o_me.jpg" alt="O mně">
+        <h4>O mně</h4>
+        <p>Informace o mně a kontakty</p>
       </a>
 
-      <a href="gaming.html" class="card">
-        <img src="assets/images/gaming.jpg" alt="Gaming">
-        <h4>Gaming</h4>
-        <p>Oblíbené hry, žánry a vybavení</p>
+      <a href="citaty.html" class="card">
+        <img src="assets/images/citaty.jpg" alt="Citáty">
+        <h4>Citáty</h4>
+        <p>Oblíbené citáty a výroky</p>
       </a>
 
-      <a href="historie.html" class="card">
-        <img src="assets/images/historie.jpg" alt="Historie">
-        <h4>Historie</h4>
-        <p>Zajímavé historické periody a události</p>
+      <a href="hudba.html" class="card">
+        <img src="assets/images/hudba.jpg" alt="Hudba">
+        <h4>Hudba</h4>
+        <p>Moje hudební vkusy</p>
+      </a>
+
+      <a href="postavy.html" class="card">
+        <img src="assets/images/oblíbené postavy.png" alt="Postavy">
+        <h4>Postavy</h4>
+        <p>Moje oblíbené postavy</p>
       </a>
 
     </section>
@@ -78,8 +83,8 @@
     document.querySelectorAll('.sidebar a')
       .forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
   })();
-  
-  (function(){ try{ localStorage.setItem('visited_zajmy','1'); }catch(e){} })();
+
+  (function(){ try{ localStorage.setItem('visited_zbytek','1'); }catch(e){} })();
 
   // === ADD QUIZ TO SIDEBAR DYNAMICALLY ===
   (function() {
@@ -99,10 +104,6 @@
       }
     }
   })();
-
-  (function(){ try{ localStorage.setItem('visited_zajmy','1'); }catch(e){} })();
-
-  // chibi avatar fallback removed (chibi removed globally)
 </script>
 
 </body>

@@ -69,6 +69,7 @@
       btn.addEventListener('click', ()=> sidebar.classList.toggle('collapsed'));
       document.querySelectorAll('.sidebar a').forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
     })();
+    (function(){ try{ localStorage.setItem('visited_postavy','1'); }catch(e){} })();
   </script>
 </body>
 </html>
