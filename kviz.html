@@ -75,32 +75,41 @@
       document.querySelectorAll('.sidebar a').forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
     })();
 
+    // === ADD QUIZ TO SIDEBAR DYNAMICALLY ===
+    (function() {
+      const requiredPages = [
+        'visited_o_me', 'visited_zajmy', 'visited_anime', 'visited_gaming',
+        'visited_historie', 'visited_zbytek', 'visited_citaty', 'visited_hudba'
+      ];
+      const allVisited = requiredPages.every(p => localStorage.getItem(p));
+      
+      if (allVisited) {
+        const nav = document.querySelector('.sidebar nav ul');
+        const existingQuizLink = nav.querySelector('li a[href="kviz.html"]');
+        if (!existingQuizLink) {
+          const li = document.createElement('li');
+          li.innerHTML = '<a href="kviz.html">Kvíz o mně 🎉</a>';
+          nav.appendChild(li);
+        }
+      }
+    })();
+
     // Kvíz: zkontrolovat požadované navštívené stránky před povolením kvízu
     (function(){
       // require visiting all other main pages before allowing the quiz
       const requiredPages = [
-        {key:'visited_home', href:'úvodní stránka.html', label:'Domů'},
         {key:'visited_o_me', href:'o me.html', label:'O mně'},
         {key:'visited_zajmy', href:'zajmy.html', label:'Zájmy a koníčky'},
         {key:'visited_anime', href:'anime.html', label:'Anime'},
         {key:'visited_gaming', href:'gaming.html', label:'Gaming'},
         {key:'visited_hudba', href:'hudba.html', label:'Hudba'},
         {key:'visited_citaty', href:'citaty.html', label:'Citáty'},
-        {key:'visited_autor', href:'autor.html', label:'Autor'},
-        {key:'visited_achievements', href:'achievements.html', label:'Achievementy'}
+        {key:'visited_zbytek', href:'zbytek.html', label:'Zbytek'},
+        {key:'visited_historie', href:'historie.html', label:'Historie'}
       ];
 
       const form = document.getElementById('quizForm');
       const result = document.getElementById('quizResult');
-
-      // create a visit counter panel above the form
-      const counter = document.createElement('div'); counter.id = 'visit-counter'; counter.className = 'panel';
-      const visitedCount = requiredPages.reduce((s,p)=> s + (localStorage.getItem(p.key)?1:0), 0);
-      counter.innerHTML = `<strong>Navštíveno: ${visitedCount} / ${requiredPages.length}</strong><div style="margin-top:8px">${requiredPages.map(p=>{
-        const ok = localStorage.getItem(p.key);
-        return `<div style="margin:4px 0; color:${ok? 'var(--accent-2)':'var(--muted)'}">${ok? '✓':'○'} <a href="${p.href}" style="color:inherit; text-decoration:underline">${p.label}</a></div>`;
-      }).join('')}</div>`;
-      if(result && result.parentNode){ result.parentNode.insertBefore(counter, result); }
 
       const missing = requiredPages.filter(p=> !localStorage.getItem(p.key));
       if(missing.length && form){

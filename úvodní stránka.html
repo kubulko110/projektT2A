@@ -57,6 +57,25 @@
 
       </section>
 
+      <!-- Progress section with visited pages -->
+      <section id="progress-section" class="panel" style="margin-top: 32px; background: linear-gradient(135deg, rgba(94, 234, 212, 0.1), rgba(96, 165, 250, 0.1)); border: 1px solid rgba(94, 234, 212, 0.2);">
+        <h3 style="margin-bottom: 16px; background: linear-gradient(90deg, #5eead4, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Tvůj pokrok na stránce</h3>
+        
+        <div style="margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <span id="progress-text" style="font-size: 14px; color: var(--text);"><strong>Navštíveno: 0 / 8</strong></span>
+            <span id="progress-percent" style="font-size: 14px; color: #5eead4; font-weight: bold; background: rgba(94, 234, 212, 0.2); padding: 4px 8px; border-radius: 4px;">0%</span>
+          </div>
+          <div style="width: 100%; height: 12px; background: rgba(255,255,255,0.1); border-radius: 6px; overflow: hidden; border: 1px solid rgba(94, 234, 212, 0.3);">
+            <div id="progress-bar" style="height: 100%; background: linear-gradient(90deg, #5eead4, #60a5fa); width: 0%; transition: width 0.3s ease; border-radius: 6px;"></div>
+          </div>
+        </div>
+        
+        <div id="pages-list" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px;">
+          <!-- Will be filled by JavaScript -->
+        </div>
+      </section>
+
     </main>
 
     <!-- followers removed per request -->
@@ -77,16 +96,65 @@
       try{ localStorage.setItem('visited_home','1'); }catch(e){}
     })();
 
-    // === QUIZ UNLOCK & CELEBRATION ===
+    // === UPDATE PROGRESS BAR ===
+    (function() {
+      const pages = [
+        { key: 'visited_o_me', label: 'O mně', href: 'o me.html' },
+        { key: 'visited_zajmy', label: 'Zájmy a koníčky', href: 'zajmy.html' },
+        { key: 'visited_anime', label: 'Anime', href: 'anime.html' },
+        { key: 'visited_gaming', label: 'Gaming', href: 'gaming.html' },
+        { key: 'visited_historie', label: 'historie', href: 'historie.html' },
+        { key: 'visited_zbytek', label: 'Zbytek', href: 'zbytek.html' },
+        { key: 'visited_citaty', label: 'Citáty', href: 'citaty.html' },
+        { key: 'visited_hudba', label: 'Hudba', href: 'hudba.html' }
+      ];
+
+      const updateProgress = () => {
+        const visited = pages.filter(p => localStorage.getItem(p.key)).length;
+        const total = pages.length;
+        const percent = Math.round((visited / total) * 100);
+        
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const progressPercent = document.getElementById('progress-percent');
+        const pagesList = document.getElementById('pages-list');
+        
+        if (progressBar && progressText && progressPercent) {
+          progressBar.style.width = percent + '%';
+          progressText.innerHTML = `<strong>Navštíveno: ${visited} / ${total}</strong>`;
+          progressPercent.textContent = percent + '%';
+        }
+        
+        if (pagesList) {
+          pagesList.innerHTML = pages.map(p => {
+            const isVisited = localStorage.getItem(p.key);
+            const checkmark = isVisited ? '✓' : '○';
+            const color = isVisited ? '#5eead4' : 'var(--muted)';
+            return `<div style="display: flex; align-items: center; gap: 8px; padding: 8px; border-radius: 6px; background: rgba(255,255,255,0.05); color: ${color};">
+              <span style="font-size: 18px; font-weight: bold; color: ${color};">${checkmark}</span>
+              <a href="${p.href}" style="color: inherit; text-decoration: none; flex: 1; font-size: 14px;">${p.label}</a>
+            </div>`;
+          }).join('');
+        }
+      };
+
+      
+      // Initial update
+      updateProgress();
+      
+      // Listen for storage changes
+      window.addEventListener('storage', updateProgress);
+    })();
+
+    // === ADD QUIZ TO SIDEBAR DYNAMICALLY ===
     (function() {
       const requiredPages = [
         'visited_o_me', 'visited_zajmy', 'visited_anime', 'visited_gaming',
-        'visited_historie', 'visited_zbytek', 'visited_citaty', 'visited_hudba', 'visited_autor'
+        'visited_historie', 'visited_zbytek', 'visited_citaty', 'visited_hudba'
       ];
       const allVisited = requiredPages.every(p => localStorage.getItem(p));
       
       if (allVisited) {
-        // Add quiz link to sidebar
         const nav = document.querySelector('.sidebar nav ul');
         const existingQuizLink = nav.querySelector('li a[href="kviz.html"]');
         if (!existingQuizLink) {
@@ -176,7 +244,7 @@
           if (card.href.includes('kviz.html')) {
             const requiredPages = [
               'visited_o_me', 'visited_zajmy', 'visited_anime', 'visited_gaming',
-              'visited_historie', 'visited_zbytek', 'visited_citaty', 'visited_hudba', 'visited_autor'
+              'visited_historie', 'visited_zbytek', 'visited_citaty', 'visited_hudba'
             ];
             const missing = requiredPages.filter(p => !localStorage.getItem(p));
             if (missing.length > 0) {

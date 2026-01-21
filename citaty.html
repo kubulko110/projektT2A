@@ -29,13 +29,21 @@
         <main class="content">
             <section class="hero">
                 <h2>Citáty</h2>
-                <p>Krátký výběr citátů, které se mi líbí.</p>
+                <p>Ty nejlepší citáty z prestižní průmyslové školy elektrotechniky a informatiky za rok 2025/26.</p>
             </section>
 
             <section class="panel">
                 <ul>
-                    <li>"Nejlepší čas zasadit strom byl před 20 lety. Druhý nejlepší čas je dnes."</li>
-                    <li>"Cesta tisíce mil začíná jedním krokem."</li>
+                    <li>"Kopeš olej olejem abys měl více oleje." Matyáš Stonavský 19.3.2025 21:20</li>
+                    <li>"Vědeli jste že jsem ze tří pětin rom?" Ing. Roman Chobot</li>
+                    <li>"Ale já vás nebudu honit do té školy když je to NNN!" Ing. Roman Chobot</li>
+                    <li>"Nepřátel mého nepřátele je můj přátel" Matyáš Stonavský</li>
+                    <li>"No Patrik to má rád když je to měkké." Ing. Roman Chobot</li>
+                    <li>"Šest Sedm. Six Seven." Oleksandr Potomkin</li>
+                    <li>"Bočítač" Josef Novák</li>
+                    <li>"Velká radost! Velké zklamání!" Mgr.et. Mgr. Michal Bařina </li>
+                    <li>"Ale já nejsem cigán." Oleksandr Potomkin</li>
+                    <li>"Nothing changes if nothing changes" Patrik Vítkovský 21.1.2026 10:45</li>
                 </ul>
             </section>
 
@@ -57,7 +65,7 @@
         (function() {
           const requiredPages = [
             'visited_o_me', 'visited_zajmy', 'visited_anime', 'visited_gaming',
-            'visited_historie', 'visited_zbytek', 'visited_citaty', 'visited_hudba', 'visited_autor'
+            'visited_historie', 'visited_zbytek', 'visited_citaty', 'visited_hudba'
           ];
           const allVisited = requiredPages.every(p => localStorage.getItem(p));
           
@@ -68,6 +76,32 @@
               const li = document.createElement('li');
               li.innerHTML = '<a href="kviz.html">Kvíz o mně 🎉</a>';
               nav.appendChild(li);
+            }
+            
+            // Add celebration effect to quiz card
+            const quizCard = document.querySelector('a[href="kviz.html"]');
+            if (quizCard && !quizCard.classList.contains('unlocked')) {
+              quizCard.classList.add('unlocked');
+              
+              // Trigger celebration animation
+              quizCard.style.animation = 'quiz-unlock 0.6s ease';
+              
+              // Create confetti-like effect
+              for (let i = 0; i < 12; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.pointerEvents = 'none';
+                confetti.style.left = quizCard.offsetLeft + quizCard.offsetWidth / 2 + 'px';
+                confetti.style.top = quizCard.offsetTop + 'px';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = ['#5eead4', '#60a5fa', '#fbbf24', '#f87171'][Math.floor(Math.random() * 4)];
+                confetti.style.borderRadius = '50%';
+                confetti.style.animation = `confetti-fall ${1 + Math.random() * 1}s ease-out forwards`;
+                confetti.style.zIndex = '999';
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 2000);
+              }
             }
           }
         })();

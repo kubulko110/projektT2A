@@ -35,19 +35,14 @@
       <section class="panel">
         <h3>Seznam</h3>
         <ul>
-          <li><strong>Attack on Titan</strong> — intenzivní příběh a silné postavy.</li>
-          <li><strong>Steins;Gate</strong> — výborné se vtahující cestování časem.</li>
-          <li><strong>One Piece</strong> — dlouhá, ale skvělá dobrodružná série.</li>
+          <li><strong>Attack on Titan</strong> — Goated anime. Skvělý příběh, krásný charakterdevelopment a dokonalý závěr. 10/10 anime</li>
+          <li><strong>Darling in the FRANXX  </strong> — Peak anime do zhruba 19 epizody. Skvělý a originální koncept, postavy se chovají skvělě a charakter development je znát. 8/10 čistě kvůli závěru, ale zakončení se mi ve výsledku líbilo</li>
+          <li><strong>Mushoku Tensei: Jobless Reincarnation</strong> — Nejlepší isekai, skvělý charakterdevelopment o člověku co s prvním životě selhal jak nejvíce mohl. 9/10  </li>
+          <li><strong>Apothecary Diaries</strong> — Skvělý příběh, originální pojetí, zajímavé postavy, krásná animeace a žába. Za mě silných 8.5/10</li>
+          <li><strong>WorldEnd: What do you do at the end of the world? Are you busy? Will you save us?</strong>- Krásně zpracované anime, velice melancholický děj a krásně zpracované zakončení. Skvělá práce s psychikou člověka, který postupně ztrácí vzpomínky na všechny okolo sebe. 9/10</li>
         </ul>
       </section>
     </main>
-      
-      <section class="panel">
-        <h3>Postavy</h3>
-        <div id="anime-chars" style="display:flex;flex-wrap:wrap;gap:10px">
-          <div style="padding:8px;color:var(--muted)">Seznam postav (viz samostatné stránky)</div>
-        </div>
-      </section>
 
     <footer class="footer">© 2025 Jakub Kresta</footer>
   </div>
@@ -65,7 +60,7 @@
     (function() {
       const requiredPages = [
         'visited_o_me', 'visited_zajmy', 'visited_anime', 'visited_gaming',
-        'visited_historie', 'visited_zbytek', 'visited_citaty', 'visited_hudba', 'visited_autor'
+        'visited_historie', 'visited_zbytek', 'visited_citaty', 'visited_hudba'
       ];
       const allVisited = requiredPages.every(p => localStorage.getItem(p));
       
@@ -76,6 +71,32 @@
           const li = document.createElement('li');
           li.innerHTML = '<a href="kviz.html">Kvíz o mně 🎉</a>';
           nav.appendChild(li);
+        }
+        
+        // Add celebration effect to quiz card
+        const quizCard = document.querySelector('a[href="kviz.html"]');
+        if (quizCard && !quizCard.classList.contains('unlocked')) {
+          quizCard.classList.add('unlocked');
+          
+          // Trigger celebration animation
+          quizCard.style.animation = 'quiz-unlock 0.6s ease';
+          
+          // Create confetti-like effect
+          for (let i = 0; i < 12; i++) {
+            const confetti = document.createElement('div');
+            confetti.style.position = 'fixed';
+            confetti.style.pointerEvents = 'none';
+            confetti.style.left = quizCard.offsetLeft + quizCard.offsetWidth / 2 + 'px';
+            confetti.style.top = quizCard.offsetTop + 'px';
+            confetti.style.width = '10px';
+            confetti.style.height = '10px';
+            confetti.style.backgroundColor = ['#5eead4', '#60a5fa', '#fbbf24', '#f87171'][Math.floor(Math.random() * 4)];
+            confetti.style.borderRadius = '50%';
+            confetti.style.animation = `confetti-fall ${1 + Math.random() * 1}s ease-out forwards`;
+            confetti.style.zIndex = '999';
+            document.body.appendChild(confetti);
+            setTimeout(() => confetti.remove(), 2000);
+          }
         }
       }
     })();

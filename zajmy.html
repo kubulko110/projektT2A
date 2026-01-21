@@ -50,7 +50,7 @@
       </a>
 
       <a href="gaming.html" class="card">
-        <img src="assets/images/gaming.jpg" alt="Gaming">
+        <img src="assets/images/gaming.png" alt="Gaming">
         <h4>Gaming</h4>
         <p>Oblíbené hry, žánry a vybavení</p>
       </a>
@@ -85,7 +85,7 @@
   (function() {
     const requiredPages = [
       'visited_o_me', 'visited_zajmy', 'visited_anime', 'visited_gaming',
-      'visited_historie', 'visited_zbytek', 'visited_citaty', 'visited_hudba', 'visited_autor'
+      'visited_historie', 'visited_zbytek', 'visited_citaty', 'visited_hudba'
     ];
     const allVisited = requiredPages.every(p => localStorage.getItem(p));
     
@@ -96,6 +96,32 @@
         const li = document.createElement('li');
         li.innerHTML = '<a href="kviz.html">Kvíz o mně 🎉</a>';
         nav.appendChild(li);
+      }
+      
+      // Add celebration effect to quiz card
+      const quizCard = document.querySelector('a[href="kviz.html"]');
+      if (quizCard && !quizCard.classList.contains('unlocked')) {
+        quizCard.classList.add('unlocked');
+        
+        // Trigger celebration animation
+        quizCard.style.animation = 'quiz-unlock 0.6s ease';
+        
+        // Create confetti-like effect
+        for (let i = 0; i < 12; i++) {
+          const confetti = document.createElement('div');
+          confetti.style.position = 'fixed';
+          confetti.style.pointerEvents = 'none';
+          confetti.style.left = quizCard.offsetLeft + quizCard.offsetWidth / 2 + 'px';
+          confetti.style.top = quizCard.offsetTop + 'px';
+          confetti.style.width = '10px';
+          confetti.style.height = '10px';
+          confetti.style.backgroundColor = ['#5eead4', '#60a5fa', '#fbbf24', '#f87171'][Math.floor(Math.random() * 4)];
+          confetti.style.borderRadius = '50%';
+          confetti.style.animation = `confetti-fall ${1 + Math.random() * 1}s ease-out forwards`;
+          confetti.style.zIndex = '999';
+          document.body.appendChild(confetti);
+          setTimeout(() => confetti.remove(), 2000);
+        }
       }
     }
   })();
