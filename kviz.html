@@ -148,8 +148,8 @@
         // show link to achievements and final thanks/game
         let link = document.getElementById('ach-link');
         if(!link){
-          link = document.createElement('div'); link.id='ach-link'; link.style.marginTop='12px';
-          link.innerHTML = `<a href="achievements.html" class="card" style="display:inline-block;padding:8px 12px;border-radius:8px;background:rgba(255,255,255,0.02);color:var(--text);text-decoration:none">Zobrazit achievementy a poděkování</a>`;
+          link = document.createElement('div'); link.id='ach-link'; link.className='ach-link';
+          link.innerHTML = `<a href="achievements.html" class="inline-card">Zobrazit achievementy a poděkování</a>`;
           result.parentNode.appendChild(link);
         }
         // (reaction characters removed) simply show result and achievements

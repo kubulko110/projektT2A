@@ -33,7 +33,7 @@
 
       <section class="panel" id="ach-list">
         <h3>Ocenění</h3>
-        <div id="items" style="display:flex;flex-wrap:wrap;gap:12px"></div>
+        <div id="items" class="ach-items"></div>
       </section>
 
     </main>
@@ -59,7 +59,7 @@
       ];
       achievements.forEach(a=>{
         const owned = localStorage.getItem(a.key);
-        const el = document.createElement('div'); el.className='card'; el.style.minWidth='200px'; el.innerHTML = `<img src="${a.img}" alt="${a.title}"><h4>${a.title}</h4><p>${owned ? 'Získáno' : 'Nezískáno'}</p>`;
+        const el = document.createElement('div'); el.className='card ach-card'; el.innerHTML = `<img src="${a.img}" alt="${a.title}"><h4>${a.title}</h4><p>${owned ? 'Získáno' : 'Nezískáno'}</p>`;
         items.appendChild(el);
       });
     })();
