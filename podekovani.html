@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Poděkování — Jakub Kresta</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <meta name="description" content="Děkuji za návštěvu mé stránky" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <button class="toggle-sidebar" aria-label="Přepnout postranní panel">☰</button>
+      <div class="topbar-title">Jakub Kresta</div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">Rychlá pomůcka</div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Domů</a></li>
+          <li><a href="o me.html">O mně</a></li>
+          <li><a href="zajmy.html">Zájmy a koníčky</a></li>
+          <li><a href="zbytek.html">Zbytek</a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">verze 1.0</div>
+    </aside>
+
+    <main class="content">
+      <section class="hero">
+        <h2>Děkuji za návštěvu!</h2>
+        <p>Moc si vážím toho, že jsi navštívil/a moji stránku a dokončil/a kvíz. Pokud máš chvilku, budu rád za tvou zpětnou vazbu.</p>
+      </section>
+
+      <section class="panel feedback-panel">
+        <h3>Zanech mi zpětnou vazbu</h3>
+        
+        <form id="feedbackForm" action="dekuji.html" method="get">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">Jméno</label>
+              <input type="text" id="firstName" name="firstName" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="lastName">Příjmení</label>
+              <input type="text" id="lastName" name="lastName" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+
+          <div class="form-group">
+            <label for="address">Adresa *</label>
+            <input type="text" id="address" name="address" required>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Telefon *</label>
+            <input type="tel" id="phone" name="phone" required>
+          </div>
+
+          <div class="form-group">
+            <label for="feedback">Tvoje hodnocení a komentář</label>
+            <textarea id="feedback" name="feedback" rows="6" required></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            Odeslat zpětnou vazbu
+          </button>
+        </form>
+
+      </section>
+    </main>
+
+    <footer class="footer">© 2025 Jakub Kresta</footer>
+  </div>
+
+  <script>
+    (function(){
+      const btn = document.querySelector('.toggle-sidebar');
+      const sidebar = document.getElementById('sidebar');
+      btn.addEventListener('click', ()=> sidebar.classList.toggle('collapsed'));
+      document.querySelectorAll('.sidebar a').forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
+    })();
+  </script>
+</body>
+</html>

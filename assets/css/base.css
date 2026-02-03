@@ -1,0 +1,12 @@
+*{box-sizing:border-box}
+html,body{
+  height:100%;
+  margin:0;
+  font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+.muted{color:var(--muted)}
+
+.hidden{display:none}

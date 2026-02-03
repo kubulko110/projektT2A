@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kvíz — Jakub Kresta</title>
-  <link rel="stylesheet" href="uvod.css">
+  <link rel="stylesheet" href="assets/css/main.css">
   
   <meta name="description" content="Kvíz o mně — stránka" />
 </head>
@@ -178,13 +178,27 @@
       const reactions = document.getElementById('reactions');
       if(!form) return;
 
-      const answers = { q1: 'b', q2: 'c', q3: 'a', q4: 'c', q5: 'a', q6: 'a', q7: 'b', q8: 'a', q9: 'b', q10: 'a' };
+      const answers = { q1: 'b', q2: 'c', q3: 'a', q4: 'c', q5: 'a', q6: 'a', q7: 'b', q8: 'a', q9: 'a', q10: 'a' };
 
       form.addEventListener('submit', function(e){
         e.preventDefault();
         // only consider questions that are actually present in the form
         const present = Object.keys(answers).filter(q => form.querySelector(`[name="${q}"]`));
         const total = present.length;
+        
+        // Check if all questions are answered
+        let unanswered = [];
+        for(const q of present){
+          const el = form.querySelector(`[name="${q}"]:checked`);
+          if(!el) unanswered.push(q);
+        }
+        
+        if(unanswered.length > 0){
+          result.style.color = '#f87171';
+          result.textContent = 'Musíš odpovědět na všechny otázky!';
+          return;
+        }
+        
         let correct = 0;
         for(const q of present){
           const el = form.querySelector(`[name="${q}"]:checked`);
@@ -193,7 +207,8 @@
         }
         const wrong = total - correct;
         const percent = total ? Math.round((correct/total)*100) : 0;
-        result.textContent = `Správně: ${correct} | Špatně: ${wrong} | Celkem: ${percent}%`;
+        result.style.color = 'var(--accent)';
+        result.innerHTML = `Správně: ${correct} | Špatně: ${wrong} | Celkem: ${percent}%<br><br><a href="podekovani.html" style="color: var(--accent-2); text-decoration: none; font-weight: 700;">Zanech mi zpětnou vazbu →</a>`;
       });
     })();
     // Pochita present on quiz page too: simple hover hearts
