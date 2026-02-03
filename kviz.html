@@ -19,9 +19,10 @@
       <div class="brand">Rychlá pomůcka</div>
       <nav>
         <ul>
-          <li><a href="úvodní stránka.html">Domů</a></li>
+          <li><a href="index.html">Domů</a></li>
           <li><a href="o me.html">O mně</a></li>
           <li><a href="zajmy.html">Zájmy a koníčky</a></li>
+          <li><a href="zbytek.html">Zbytek</a></li>
         </ul>
       </nav>
       <div class="sidebar-footer">verze 1.0</div>
@@ -55,6 +56,13 @@
             <label>a) <input type="radio" name="q3" value="a"> chci se podílet na vývoji videoher</label>
             <label>b) <input type="radio" name="q3" value="b"> hodně to vydělává</label>
             <label>c) <input type="radio" name="q3" value="c"> nic lepšího na výběr nebylo</label>
+          </div>
+          
+          <div class="question">
+            <div class="qtext">4) Proč jsem vytvořil tuto stránku?</div>
+            <label>a) <input type="radio" name="q4" value="a"> Z nudy</label>
+            <label>b) <input type="radio" name="q4" value="b"> Ze srandy</label>
+            <label>c) <input type="radio" name="q4" value="c"> Školní projekt</label>
           </div>
 
             <div class="question">
@@ -90,6 +98,13 @@
             <label>a) <input type="radio" name="q9" value="a"> 17</label>
             <label>b) <input type="radio" name="q9" value="b"> 20</label>
             <label>c) <input type="radio" name="q9" value="c"> 22</label>
+          </div>
+
+          <div class="question">
+            <div class="qtext">10) Který z těchto citátů pronesl Patrik Vítkovský?</div>
+            <label>a) <input type="radio" name="q10" value="a"> "Nothing changes if nothing changes"</label>
+            <label>b) <input type="radio" name="q10" value="b"> "Kopeš olej olejem abys měl více oleje."</label>
+            <label>c) <input type="radio" name="q10" value="c"> "Kdyby tu byl, tak by tu byl."</label>
           </div>
 
           <button type="submit">Odevzdat</button>
@@ -163,7 +178,7 @@
       const reactions = document.getElementById('reactions');
       if(!form) return;
 
-      const answers = { q1: 'b', q2: 'c', q3: 'a', q4: 'a', q5: 'a', q6: 'a', q7: 'b', q8: 'a', q9: 'b' };
+      const answers = { q1: 'b', q2: 'c', q3: 'a', q4: 'c', q5: 'a', q6: 'a', q7: 'b', q8: 'a', q9: 'b', q10: 'a' };
 
       form.addEventListener('submit', function(e){
         e.preventDefault();
@@ -179,17 +194,6 @@
         const wrong = total - correct;
         const percent = total ? Math.round((correct/total)*100) : 0;
         result.textContent = `Správně: ${correct} | Špatně: ${wrong} | Celkem: ${percent}%`;
-        // award achievements
-        localStorage.setItem('ach_quiz_complete','1');
-        if(percent > 50) localStorage.setItem('ach_quiz_50','1');
-        // show link to achievements and final thanks/game
-        let link = document.getElementById('ach-link');
-        if(!link){
-          link = document.createElement('div'); link.id='ach-link'; link.className='ach-link';
-          link.innerHTML = `<a href="achievements.html" class="inline-card">Zobrazit achievementy a poděkování</a>`;
-          result.parentNode.appendChild(link);
-        }
-        // (reaction characters removed) simply show result and achievements
       });
     })();
     // Pochita present on quiz page too: simple hover hearts
@@ -208,7 +212,7 @@
       if(!hearts){ hearts = document.createElement('div'); hearts.id='pochita-hearts-quiz'; hearts.className='hearts'; poch.appendChild(hearts); }
 
       function makeHeart(){ const s=document.createElement('span'); s.className='heart'; s.innerHTML='❤'; hearts.appendChild(s); setTimeout(()=>s.remove(),1400); }
-      poch.addEventListener('mouseenter', ()=>{ makeHeart(); poch._t=setInterval(makeHeart,700); if(!localStorage.getItem('pochita_ach')){ localStorage.setItem('pochita_ach','1'); const a=document.createElement('div'); a.className='achievement show'; a.textContent='Gratuluji, našel jsi secret'; document.body.appendChild(a); setTimeout(()=>{ a.remove(); },4000);} });
+      poch.addEventListener('mouseenter', ()=>{ makeHeart(); poch._t=setInterval(makeHeart,700); });
       poch.addEventListener('mouseleave', ()=>{ clearInterval(poch._t); });
     })();
   </script>

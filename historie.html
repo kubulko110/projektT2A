@@ -18,9 +18,10 @@
       <div class="brand">Rychlá pomůcka</div>
       <nav>
         <ul>
-          <li><a href="úvodní stránka.html">Domů</a></li>
+          <li><a href="index.html">Domů</a></li>
           <li><a href="o me.html">O mně</a></li>
           <li><a href="zajmy.html">Zájmy a koníčky</a></li>
+          <li><a href="zbytek.html">Zbytek</a></li>
         </ul>
       </nav>
       <div class="sidebar-footer">verze 1.0</div>
@@ -44,6 +45,26 @@
           <li><strong>Moderní historie válek</strong> je jedna z asi nejaktuálnějších období a díky tomu i tak fascinující. Jde zde vidět nepoučitelnost lidsta, nutkání mít více. </li>
           <li><Strong>Doomday clock</Strong> jsou hodiny, které souvisejí s aktuálními válkami. Mají za úkol ukázat to, jak moc se lidstvo blíží k potenciálnímu globálnímu sebezničení. Jsou nejblíž půlnoci, co kdy byly, což znamená, že jsme nejblíže sebezničení co jsme kdy jako lidstvo byli. Jsme již blíž půlnoci než když byla karibská krize.</li>
         </ul>
+
+        <div class="image-row" style="display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap; margin-top:16px;">
+          <figure class="history-figure" style="text-align:center; margin:0;">
+            <img src="assets/images/historie/doomsday clock.png" alt="Doomsday Clock" draggable="false" oncontextmenu="return false;" style="pointer-events:none; width:180px; height:120px; object-fit:cover; display:block;">
+            <figcaption style="font-size:0.9rem; margin-top:8px;">doomsday clock</figcaption>
+          </figure>
+          <figure class="history-figure" style="text-align:center; margin:0;">
+            <img src="assets/images/historie/druhá světová válka.jpg" alt="Druhá světová válka" draggable="false" oncontextmenu="return false;" style="pointer-events:none; width:180px; height:120px; object-fit:cover; display:block;">
+            <figcaption style="font-size:0.9rem; margin-top:8px;">druhá světová válka</figcaption>
+          </figure>
+          <figure class="history-figure" style="text-align:center; margin:0;">
+            <img src="assets/images/historie/komunismus.png" alt="Komunismus" draggable="false" oncontextmenu="return false;" style="pointer-events:none; width:180px; height:120px; object-fit:cover; display:block;">
+            <figcaption style="font-size:0.9rem; margin-top:8px;">komunismus</figcaption>
+          </figure>
+          <figure class="history-figure" style="text-align:center; margin:0;">
+            <img src="assets/images/historie/moderní války.png" alt="Moderní války" draggable="false" oncontextmenu="return false;" style="pointer-events:none; width:180px; height:120px; object-fit:cover; display:block;">
+            <figcaption style="font-size:0.9rem; margin-top:8px;">moderní války</figcaption>
+          </figure>
+        </div>
+
       </section>
 
     </main>
@@ -58,7 +79,7 @@
       btn.addEventListener('click', ()=> sidebar.classList.toggle('collapsed'));
       document.querySelectorAll('.sidebar a').forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
     })();
-    (function(){ try{ localStorage.setItem('visited_historie','1'); localStorage.setItem('ach_historie_visited','1'); }catch(e){} })();
+    (function(){ try{ localStorage.setItem('visited_historie','1'); }catch(e){} })();
 
     // === ADD QUIZ TO SIDEBAR DYNAMICALLY ===
     (function() {

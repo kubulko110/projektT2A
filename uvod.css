@@ -323,7 +323,6 @@ html,body{
 .anime-item .mal-link:hover{filter:brightness(1.03);transform:translateY(-2px)}
 @media (max-width:520px){.anime-item .caption-row{flex-direction:column;gap:6px;text-align:center}.anime-item .mal-link{width:100%;padding:8px}}
 
-
 .anime-list{display:flex;flex-direction:column;gap:16px}
 .anime-card{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:start;padding:12px;border-radius:10px;background:transparent;border:none}
 .anime-content h4{margin:0 0 8px 0}
@@ -359,11 +358,6 @@ html,body{
 #quizResult{margin-top:12px; font-weight:700;color:var(--accent)}
 
 
-
-
-.achievement{position:fixed;left:12px;bottom:12px;background:rgba(0,0,0,0.8);color:var(--text);padding:10px 12px;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.6);z-index:9999;display:none}
-.achievement.show{display:block;animation:ach-in .45s ease}
-@keyframes ach-in{0%{transform:translateY(12px) scale(.98);opacity:0}100%{transform:translateY(0) scale(1);opacity:1}}
 
 
 .hidden{display:none}
