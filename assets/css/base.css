@@ -1,12 +1,20 @@
-*{box-sizing:border-box}
-html,body{
-  height:100%;
-  margin:0;
-  font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;
-  background:var(--bg);
-  color:var(--text);
+/* Base Styles */
+* {
+  box-sizing: border-box;
 }
 
-.muted{color:var(--muted)}
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
 
-.hidden{display:none}
+.muted {
+  color: var(--muted);
+}
+
+.hidden {
+  display: none;
+}
