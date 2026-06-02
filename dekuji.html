@@ -17,12 +17,25 @@
   </div>
 
   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const name = urlParams.get('name');
-    
-    if (name) {
-      document.getElementById('personalMsg').textContent = `Moc si toho vážím, ${decodeURIComponent(name)}!`;
-    }
+    (function(){
+      const btn = document.querySelector('.toggle-sidebar');
+      const sidebar = document.getElementById('sidebar');
+      if (btn && sidebar) {
+        btn.addEventListener('click', ()=> sidebar.classList.toggle('collapsed'));
+        document.querySelectorAll('.sidebar a').forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
+      }
+    })();
+
+    // PERSONALIZACE JMÉNA Z URL
+    (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const name = urlParams.get('name');
+      const title = document.getElementById('thanksMsg');
+      
+      if (name && title) {
+        title.textContent = `Děkuji za návštěvu, ${decodeURIComponent(name)}!`;
+      }
+    })();
   </script>
 </body>
 </html>

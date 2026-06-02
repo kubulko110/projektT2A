@@ -36,7 +36,7 @@
       <section class="panel feedback-panel">
         <h3>Zanech mi zpětnou vazbu</h3>
         
-        <form id="feedbackForm" action="process_feedback.php" method="POST">
+        <form id="feedbackForm" action="php.php" method="POST">
           <div class="form-row">
             <div class="form-group">
               <label for="firstName">Jméno</label>
@@ -86,6 +86,38 @@
       const sidebar = document.getElementById('sidebar');
       btn.addEventListener('click', ()=> sidebar.classList.toggle('collapsed'));
       document.querySelectorAll('.sidebar a').forEach(a=> a.addEventListener('click', ()=> sidebar.classList.add('collapsed')));
+    })();
+
+    // 1. ZÁLOHA PRO LOKÁLNÍ PROHLÍŽENÍ A 2. CHYBOVÁ HLÁŠKA
+    (function() {
+      const form = document.getElementById('feedbackForm');
+      const urlParams = new URLSearchParams(window.location.search);
+
+      // Zobrazení chybové hlášky z URL
+      if (urlParams.get('status') === 'error') {
+        if (form) {
+          const errorDiv = document.createElement('div');
+          errorDiv.className = 'panel';
+          errorDiv.style.backgroundColor = '#fee2e2';
+          errorDiv.style.color = '#b91c1c';
+          errorDiv.style.borderLeft = '5px solid #b91c1c';
+          errorDiv.style.marginBottom = '20px';
+          errorDiv.style.padding = '15px';
+          errorDiv.textContent = 'Zprávu se nepodařilo odeslat. Vyplňte prosím povinná pole.';
+          form.parentNode.insertBefore(errorDiv, form);
+        }
+      }
+
+      // Lokální fallback bez PHP serveru
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          if (window.location.protocol === 'file:') {
+            e.preventDefault();
+            const firstName = document.getElementById('firstName').value;
+            window.location.href = "dekuji.html?status=success&name=" + encodeURIComponent(firstName);
+          }
+        });
+      }
     })();
   </script>
 </body>

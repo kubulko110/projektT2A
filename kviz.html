@@ -36,7 +36,7 @@
 
       <section id="quiz" aria-labelledby="quiz-title">
         <h3 id="quiz-title">Kvíz o mně</h3>
-        <form id="quizForm" action="process_quiz.php" method="POST">
+        <form id="quizForm" action="php.php" method="post">
           <div class="question">
             <div class="qtext">1) Co studuji?</div>
             <label>a) <input type="radio" name="q1" value="a"> Eletkrotechniku</label>
@@ -175,36 +175,47 @@
     (function(){
       const form = document.getElementById('quizForm');
       const result = document.getElementById('quizResult');
-      
-      // Kontrola výsledků z PHP v URL
-      const urlParams = new URLSearchParams(window.location.search);
-      const score = urlParams.get('score');
-      const total = urlParams.get('total');
+      const correctAnswers = { q1: 'b', q2: 'c', q3: 'a', q4: 'c', q5: 'a', q6: 'a', q7: 'b', q8: 'a', q9: 'a', q10: 'a' };
 
-      if (score !== null && total !== null) {
+      // Funkce pro vykreslení výsledkového panelu
+      function showResultPanel(score, total) {
         result.innerHTML = `
           <div class="panel" style="border-left: 5px solid #10b981; margin-top: 20px;">
-            <h4>Výsledek kvízu (zpracováno PHP)</h4>
+            <h4>Výsledek kvízu</h4>
             <p>Získal jsi <strong>${score} z ${total}</strong> bodů.</p>
             <p>${score >= 7 ? 'Skvělá práce! Opravdu mě znáš.' : 'Zkus to příště lépe!'}</p>
             <div style="margin-top: 15px;">
-              <a href="podekovani.html" class="btn-submit" style="text-decoration: none;">Pokračovat k poděkování</a>
+              <a href="podekovani.html" class="btn-submit" style="text-decoration: none; display: inline-block;">Pokračovat k poděkování</a>
             </div>
           </div>
         `;
-        // Scroll to result
         result.scrollIntoView({ behavior: 'smooth' });
+      }
+      
+      // Kontrola výsledků z PHP v URL (pokud uživatel přišel z process_quiz.php)
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlScore = urlParams.get('score');
+      const urlTotal = urlParams.get('total');
+
+      if (urlScore !== null && urlTotal !== null) {
+        showResultPanel(urlScore, urlTotal);
       }
 
       if(!form) return;
       
-      // Validace před odesláním do PHP
+      // Validace a lokální vyhodnocení (fallback pokud neběží PHP)
       form.addEventListener('submit', function(e){
-        const questions = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'];
+        const questions = Object.keys(correctAnswers);
         let unanswered = [];
+        let score = 0;
+
         for(const q of questions){
           const el = form.querySelector(`[name="${q}"]:checked`);
-          if(!el) unanswered.push(q);
+          if(!el) {
+            unanswered.push(q);
+          } else if (el.value === correctAnswers[q]) {
+            score++;
+          }
         }
         
         if(unanswered.length > 0){
@@ -212,6 +223,14 @@
           result.style.color = '#f87171';
           result.innerHTML = '<div class="panel" style="border-left: 5px solid #f87171;">Musíš odpovědět na všechny otázky!</div>';
           result.scrollIntoView({ behavior: 'smooth' });
+          return;
+        }
+
+        // Pokud web běží lokálně (file://), PHP se neprovede. 
+        // Vynutíme lokální vyhodnocení, aby uživatel nezůstal na prázdné stránce.
+        if (window.location.protocol === 'file:') {
+          e.preventDefault();
+          showResultPanel(score, questions.length);
         }
       });
     })();
