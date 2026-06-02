@@ -9,7 +9,21 @@
 </head>
 <body>
   <div class="thank-you-container">
-    <h1 class="thank-you-message">Děkuji za zpětnou vazbu</h1>
+    <h1 class="thank-you-message" id="thanksMsg">Děkuji za zpětnou vazbu</h1>
+    <p id="personalMsg" style="text-align: center; margin-top: 20px; font-size: 1.2rem;"></p>
+    <div style="text-align: center; margin-top: 30px;">
+      <a href="index.html" class="btn-submit" style="text-decoration: none;">Zpět na hlavní stránku</a>
+    </div>
   </div>
+
+  <script>
+    // Načtení jména z URL (např. ?name=Jakub)
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get('name');
+    
+    if (name) {
+      document.getElementById('personalMsg').textContent = `Moc si toho vážím, ${decodeURIComponent(name)}!`;
+    }
+  </script>
 </body>
 </html>
