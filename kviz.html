@@ -36,7 +36,7 @@
 
       <section id="quiz" aria-labelledby="quiz-title">
         <h3 id="quiz-title">Kvíz o mně</h3>
-        <form id="quizForm">
+        <form id="quizForm" action="process_quiz.php" method="POST">
           <div class="question">
             <div class="qtext">1) Co studuji?</div>
             <label>a) <input type="radio" name="q1" value="a"> Eletkrotechniku</label>
@@ -171,46 +171,51 @@
       }
     })();
 
-    // Kvíz: vyhodnocení s reakcemi
+    // Kvíz: vyhodnocení a validace
     (function(){
       const form = document.getElementById('quizForm');
       const result = document.getElementById('quizResult');
-      const reactions = document.getElementById('reactions');
+      
+      // Kontrola výsledků z PHP v URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const score = urlParams.get('score');
+      const total = urlParams.get('total');
+
+      if (score !== null && total !== null) {
+        result.innerHTML = `
+          <div class="panel" style="border-left: 5px solid #10b981; margin-top: 20px;">
+            <h4>Výsledek kvízu (zpracováno PHP)</h4>
+            <p>Získal jsi <strong>${score} z ${total}</strong> bodů.</p>
+            <p>${score >= 7 ? 'Skvělá práce! Opravdu mě znáš.' : 'Zkus to příště lépe!'}</p>
+            <div style="margin-top: 15px;">
+              <a href="podekovani.html" class="btn-submit" style="text-decoration: none;">Pokračovat k poděkování</a>
+            </div>
+          </div>
+        `;
+        // Scroll to result
+        result.scrollIntoView({ behavior: 'smooth' });
+      }
+
       if(!form) return;
-
-      const answers = { q1: 'b', q2: 'c', q3: 'a', q4: 'c', q5: 'a', q6: 'a', q7: 'b', q8: 'a', q9: 'a', q10: 'a' };
-
+      
+      // Validace před odesláním do PHP
       form.addEventListener('submit', function(e){
-        e.preventDefault();
-        // only consider questions that are actually present in the form
-        const present = Object.keys(answers).filter(q => form.querySelector(`[name="${q}"]`));
-        const total = present.length;
-        
-        // Check if all questions are answered
+        const questions = ['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'];
         let unanswered = [];
-        for(const q of present){
+        for(const q of questions){
           const el = form.querySelector(`[name="${q}"]:checked`);
           if(!el) unanswered.push(q);
         }
         
         if(unanswered.length > 0){
+          e.preventDefault();
           result.style.color = '#f87171';
-          result.textContent = 'Musíš odpovědět na všechny otázky!';
-          return;
+          result.innerHTML = '<div class="panel" style="border-left: 5px solid #f87171;">Musíš odpovědět na všechny otázky!</div>';
+          result.scrollIntoView({ behavior: 'smooth' });
         }
-        
-        let correct = 0;
-        for(const q of present){
-          const el = form.querySelector(`[name="${q}"]:checked`);
-          const val = el ? el.value : null;
-          if(val === answers[q]) correct++;
-        }
-        const wrong = total - correct;
-        const percent = total ? Math.round((correct/total)*100) : 0;
-        result.style.color = 'var(--accent)';
-        result.innerHTML = `Správně: ${correct} | Špatně: ${wrong} | Celkem: ${percent}%<br><br><a href="podekovani.html" style="color: var(--accent-2); text-decoration: none; font-weight: 700;">Zanech mi zpětnou vazbu →</a>`;
       });
     })();
+    
     // Pochita present on quiz page too: simple hover hearts
     (function(){
       const reactions = document.getElementById('reactions');
